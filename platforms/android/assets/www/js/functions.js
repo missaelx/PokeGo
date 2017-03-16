@@ -2,6 +2,7 @@ var Latitude = undefined;
 var Longitude = undefined;
 var map;
 var markers = [];
+var watchID; //id del evento que vigila la posicion
 
 function onOffline(){
     //alert("No tienes conexión");
@@ -19,56 +20,50 @@ function onOnline(){
     //alert("Tienes conexión al mundo");
 }
 
-function vigilarPosicion(){
-	function getMap(latitude, longitude) {
+function addMarker(latitude, longitude){
+	// Add a maker
+	markers[0].remove();
+	map.addMarker({
+		position: {lat: latitude, lng: longitude},
+		animation: plugin.google.maps.Animation.BOUNCE
+	}, function(marker) {
+		
+		markers[0] = marker;
+		vigilarPosicion();
+	});
 
-	    markers[0].map = null;
-	    // Add a maker
-		map.addMarker({
-			position: {lat: latitude, lng: longitude},
-			// icon: {
-			// 	url: "www/img/marker-jobs.png"
-			// },
-			animation: plugin.google.maps.Animation.BOUNCE
-		}, function(marker) {
+}
+function actualizarMapa(position){
+	//paramos de leer hasta que se ejecute todo
+	navigator.geolocation.clearWatch(watchID);
 
-			markers[0] = marker;
+	var updatedLatitude = position.coords.latitude;
+    var updatedLongitude = position.coords.longitude;
 
-			// Catch the click event
-			marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-				// To do something...
-				alert("Hello world!");
-			});
-		});
+    if (updatedLatitude != Latitude || updatedLongitude != Longitude) {
 
-	}
+        Latitude = updatedLatitude;
+        Longitude = updatedLongitude;
 
-
-
-    function actualizarMapa(position){
-    	var updatedLatitude = position.coords.latitude;
-	    var updatedLongitude = position.coords.longitude;
-
-	    if (updatedLatitude != Latitude || updatedLongitude != Longitude) {
-
-	        Latitude = updatedLatitude;
-	        Longitude = updatedLongitude;
-
-	        getMap(updatedLatitude, updatedLongitude);
-	    }
-	}
-
-    
-    function onError(error) {
-    	if(error.code == PositionError.PERMISSION_DENIED){
-    		navigator.notification.alert("La aplicacion necesita permiso para acceder a tu posicion", null , "Permiso denegado", ["Aceptar"])
-    	} else if(error.code) {
-    		navigator.notification.alert("Imposible acceder a tu posicion", null, "Fuera de cobertura", ["Aceptar"])
-    	}
+        addMarker(updatedLatitude, updatedLongitude);
+    } else {
+    	vigilarPosicion();
     }
+}
+function onError(error) {
+	if(error.code == PositionError.PERMISSION_DENIED){
+		navigator.notification.alert("La aplicacion necesita permiso para acceder a tu posicion", null , "Permiso denegado", ["Aceptar"])
+	} else if(error.code) {
+		navigator.notification.alert("Imposible acceder a tu posicion", null, "Fuera de cobertura", ["Aceptar"])
+	} else{
+		console.log(error);
+		navigator.notification.alert("Imposible acceder a tu posicion", null, "Error desconocido", ["Aceptar"])
+	}
+}
+function vigilarPosicion(){
 
     
-    var watchID = navigator.geolocation.watchPosition(actualizarMapa, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+    watchID = navigator.geolocation.watchPosition(actualizarMapa, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
 
 }
 
@@ -118,15 +113,16 @@ function incializarMapa(){
 					}, function(marker) {
 
 						markers[0] = marker;
-
+						vigilarPosicion();
 						// Catch the click event
 						marker.on(plugin.google.maps.event.INFO_CLICK, function() {
 							// To do something...
 							alert("Hello world!");
 						});
+
 					});
 
-					vigilarPosicion();
+					
 			});
 		}, function(){
 			alert("Imposible construir mapa porque no hay acceso a la geolocalizacion")
