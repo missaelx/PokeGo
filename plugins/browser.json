@@ -21,10 +21,16 @@
         },
         "cordova-plugin-googlemaps": {
             "PACKAGE_NAME": "xyz.missael"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "xyz.missael"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "xyz.missael"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "xyz.missael"
         }
     }

@@ -3,6 +3,14 @@ var Longitude = undefined;
 var map;
 var markers = [];
 var watchID; //id del evento que vigila la posicion
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 function onOffline(){
     //alert("No tienes conexión");
@@ -16,12 +24,69 @@ function onOffline(){
     	}
     },'Sin conexión',['Reintentar','Salir']); //reintentar 1, salir 2, 0 sin seleccion
 }
+function buscarPokemones(latitude, longitude){
+	var latitudSinPrecision = latitude.toPrecision(6);
+	var longitudSinPrecision = longitude.toPrecision(6);
 
+	for(var i = 0; i < artefactos.objetos.length; i++){
+		var pokemon = artefactos.objetos[i];
+		var latPokemonSinPresicion = pokemon.lat.toPrecision(6);
+		var lngPokemonSinPresicion = pokemon.lng.toPrecision(6);
+		if (latPokemonSinPresicion == latitudSinPrecision &&
+			lngPokemonSinPresicion == longitudSinPrecision){
+			asignarMarcadorAPokemon(i, pokemon.lat, pokemon.lng);
+		} else {
+			if(pokemon.markers.length != 0){
+				for(var j =0; j< pokemon.markers.length; j++){
+					console.log(pokemon.markers[j]);
+					pokemon.markers[j].empty();
+					console.log("Se ha eliminado el marcador");
+					console.log(pokemon.markers[j]);
+				}
+				pokemon.markers = [];
+			}
+		}
+	}
+}
+
+function capturarPokemon(e){
+	alert("Info clicked");
+	console.log(e);
+}
+
+function asignarMarcadorAPokemon(indice, lat, lon){
+	var pokemon = artefactos.objetos[indice];
+	if(pokemon.markers.length == 0){
+		map.addMarker({
+			position: {lat: lat, lng: lon},
+			title: pokemon.nombre,
+			icon: {
+				url: "www/img/" + pokemon.img
+			},
+			animation: plugin.google.maps.Animation.BOUNCE
+		}, function(marker){
+			marker.pokemon = pokemon;
+			marker.addEventListener(plugin.google.maps.event.MARKER_CLICK, function(e) {
+				marker.showInfoWindow();
+				marker.setAnimation(plugin.google.maps.Animation.BOUNCE);
+			});
+			marker.addEventListener(plugin.google.maps.event.INFO_CLICK, function(e) {
+				capturarPokemon(e);
+			});
+			pokemon.markers.push(marker);
+		});	
+	}
+
+	
+}
 function addMarker(latitude, longitude){
 	// Add a maker
 	markers[0].remove();
 	map.addMarker({
 		position: {lat: latitude, lng: longitude},
+		icon:{
+			url: "www/img/current.png"
+		},
 		animation: plugin.google.maps.Animation.BOUNCE
 	}, function(marker) {
 		
@@ -46,19 +111,19 @@ function actualizarMapa(position){
     } else {
     	vigilarPosicion();
     }
+    buscarPokemones(updatedLatitude, updatedLongitude);
 }
 function onError(error) {
-	if(error.code == PositionError.PERMISSION_DENIED){
-		navigator.notification.alert("La aplicacion necesita permiso para acceder a tu posicion", null , "Permiso denegado", ["Aceptar"])
-	} else if(error.code) {
-		navigator.notification.alert("Imposible acceder a tu posicion", null, "Fuera de cobertura", ["Aceptar"])
-	} else{
-		console.log(error);
-		navigator.notification.alert("Imposible acceder a tu posicion", null, "Error desconocido", ["Aceptar"])
-	}
+	navigator.notification.alert("Imposible acceder a tu posicion", null, "Error desconocido", ["Aceptar"])
 }
 function vigilarPosicion(){
-    watchID = navigator.geolocation.watchPosition(actualizarMapa, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+    watchID = navigator.geolocation.watchPosition(actualizarMapa, onError,
+    	{
+    		maximumAge: 3000,
+    		timeout: 5000,
+    		enableHighAccuracy: true
+    	}
+    );
 }
 
 function incializarMapa(){
@@ -101,26 +166,17 @@ function incializarMapa(){
 					map.addMarker({
 						position: {lat: position.coords.latitude, lng: position.coords.longitude},
 						icon: {
-							url: "www/img/marker-jobs.png"
+							url: "www/img/current.png"
 						},
 						animation: plugin.google.maps.Animation.BOUNCE
 					}, function(marker) {
-
 						markers[0] = marker;
 						vigilarPosicion();
-						// Catch the click event
-						marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-							// To do something...
-							alert("Hello world!");
-						});
-
 					});
 
 					
 			});
-		}, function(){
-			alert("Imposible construir mapa porque no hay acceso a la geolocalizacion")
-		});
+		}, onError);
 
 		
 	}
@@ -128,5 +184,16 @@ function incializarMapa(){
 
 	// Wait until the map is ready status.
 	map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+}
+
+function incializarObjetos(){
+	var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+	
+	//verificamos si esta guardado una copia de los objetos de hoy
+	artefactos.objetos = modelo[utc];
+	localStorage.pokemontoday = modelo[utc];
+	localStorage.today = utc;
+	
+
 }
 
