@@ -58,6 +58,7 @@ var app = {
 
         incializarObjetos();
         incializarMapa();
+        inicializarBD();
 
         isAndroid = true; //cambiar al desplegar en IOS
         media = new Media(getMediaURL('music/Missa App.mp3'), null, mediaError, onMediaStatus);

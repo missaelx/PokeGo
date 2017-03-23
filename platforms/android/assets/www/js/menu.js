@@ -1,23 +1,14 @@
-function changeLanguage(language) {
-    var element = document.getElementById("url");
-    element.value = language;
-    element.innerHTML = language;
-}
-
-function showDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
+$('#myModal').on('shown.bs.modal', function () {
+    
+    for(id in idPokemon){
+        var pokemon = JSON.parse(localStorage.getItem(idPokemon[id]));
+        $("#componentes").append('<div class="row"><img src="img/' + pokemon.img + '" class="col-md-2 icono-dex"><p class="col-md-10">'+ pokemon.nombre+'</p></div>');
     }
-}
+
+
+});
+
+$('#myModal').on('hidden.bs.modal', function (e) {
+    $("#componentes").empty();
+})
+

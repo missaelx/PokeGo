@@ -38,10 +38,7 @@ function buscarPokemones(latitude, longitude){
 		} else {
 			if(pokemon.markers.length != 0){
 				for(var j =0; j< pokemon.markers.length; j++){
-					console.log(pokemon.markers[j]);
 					pokemon.markers[j].empty();
-					console.log("Se ha eliminado el marcador");
-					console.log(pokemon.markers[j]);
 				}
 				pokemon.markers = [];
 			}
@@ -50,8 +47,19 @@ function buscarPokemones(latitude, longitude){
 }
 
 function capturarPokemon(e){
-	alert("Info clicked");
-	console.log(e);
+	navigator.notification.beep(1);
+	var pokemonpuro = {
+		id: e.pokemon.id,
+		nombre: e.pokemon.nombre,
+		img: e.pokemon.img
+	};
+	localStorage.setItem(e.pokemon.id, JSON.stringify(pokemonpuro) );
+	navigator.notification.alert(
+	    'Felicidades has atrapado a ' + pokemonpuro.nombre,  // message
+	    null,         // callback
+	    'Componente capturado',            // title
+	    'Entendido'                  // buttonName
+	);
 }
 
 function asignarMarcadorAPokemon(indice, lat, lon){
@@ -85,7 +93,7 @@ function addMarker(latitude, longitude){
 	map.addMarker({
 		position: {lat: latitude, lng: longitude},
 		icon:{
-			url: "www/img/current.png"
+			url: "www/img/current2.png"
 		},
 		animation: plugin.google.maps.Animation.BOUNCE
 	}, function(marker) {
@@ -119,8 +127,8 @@ function onError(error) {
 function vigilarPosicion(){
     watchID = navigator.geolocation.watchPosition(actualizarMapa, onError,
     	{
-    		maximumAge: 3000,
-    		timeout: 5000,
+    		maximumAge: 10000,
+    		timeout: 10000,
     		enableHighAccuracy: true
     	}
     );
@@ -166,7 +174,7 @@ function incializarMapa(){
 					map.addMarker({
 						position: {lat: position.coords.latitude, lng: position.coords.longitude},
 						icon: {
-							url: "www/img/current.png"
+							url: "www/img/current2.png"
 						},
 						animation: plugin.google.maps.Animation.BOUNCE
 					}, function(marker) {
@@ -194,6 +202,7 @@ function incializarObjetos(){
 	localStorage.pokemontoday = modelo[utc];
 	localStorage.today = utc;
 	
+
 
 }
 

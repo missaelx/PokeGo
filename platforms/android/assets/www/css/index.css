@@ -9,3 +9,12 @@ body,
 #mapa{
 	height: 100%;
 }
+
+.header{
+	text-align: center;
+	padding: 1em;
+}
+
+#componentes p{
+	display: inline-block;
+}
