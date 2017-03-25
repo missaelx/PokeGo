@@ -3,14 +3,6 @@ var Longitude = undefined;
 var map;
 var markers = [];
 var watchID; //id del evento que vigila la posicion
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
 
 function onOffline(){
     //alert("No tienes conexión");
@@ -53,14 +45,10 @@ function capturarPokemon(e){
 		nombre: e.pokemon.nombre,
 		img: e.pokemon.img
 	};
-	localStorage.setItem(e.pokemon.id, JSON.stringify(pokemonpuro) );
-	navigator.notification.alert(
-	    'Felicidades has atrapado a ' + pokemonpuro.nombre,  // message
-	    null,         // callback
-	    'Componente capturado',            // title
-	    'Entendido'                  // buttonName
-	);
+	
+	llenarPreguntas(e);
 }
+
 
 function asignarMarcadorAPokemon(indice, lat, lon){
 	var pokemon = artefactos.objetos[indice];
@@ -84,8 +72,6 @@ function asignarMarcadorAPokemon(indice, lat, lon){
 			pokemon.markers.push(marker);
 		});	
 	}
-
-	
 }
 function addMarker(latitude, longitude){
 	// Add a maker
@@ -201,8 +187,6 @@ function incializarObjetos(){
 	artefactos.objetos = modelo[utc];
 	localStorage.pokemontoday = modelo[utc];
 	localStorage.today = utc;
-	
-
-
+	localStorage.numeroErroresPreguntas = "0";
 }
 
