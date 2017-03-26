@@ -17,9 +17,25 @@
         <div class="app">
             <div id="mapa">
                 <div class="header">
+                    
+                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                    </button>
+                    
                     <button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                     </button>
+
+                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    </button>
+                    
+                </div>
+                <div id="coordenadasDiv">
+                    <p>Latitud</p>
+                    <p id="x"></p>
+                    <p>Longitud</p>
+                    <p id="y"></p>
                 </div>
 
 
@@ -37,6 +53,22 @@
                                 
                                 <h5>Componentes capturados</h5>
                                 <div id="componentes" class="container-fluid"></div>
+
+                                <div id="stats">
+                                    <table class="table">
+                                        <tr>
+                                            <th>Estadísticas</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Componentes capturados</td>
+                                            <td id="statComponentes"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Respuestas erroneas a preguntas</td>
+                                            <td id="errorRespuestas"></td>
+                                        </tr>
+                                    </table>
+                                </div>
 
                             </div>
                             <div class="modal-footer">

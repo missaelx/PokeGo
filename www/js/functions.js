@@ -45,8 +45,15 @@ function capturarPokemon(e){
 		nombre: e.pokemon.nombre,
 		img: e.pokemon.img
 	};
-	
-	llenarPreguntas(e);
+	if(JSON.parse(localStorage.getItem(pokemonpuro.id)).nombre != "No descubierto"){
+		navigator.notification.alert(
+		    'Ya capturaste este componente',  // message
+		    null,         // callback
+		    'Sigue buscando',            // title
+		    'Entendido'                  // buttonName
+		);
+	} else
+		llenarPreguntas(pokemonpuro);
 }
 
 
@@ -100,6 +107,9 @@ function actualizarMapa(position){
 
         Latitude = updatedLatitude;
         Longitude = updatedLongitude;
+
+        $("#x").html(updatedLatitude);
+        $("#y").html(updatedLongitude);
 
         addMarker(updatedLatitude, updatedLongitude);
     } else {
@@ -181,12 +191,26 @@ function incializarMapa(){
 }
 
 function incializarObjetos(){
-	var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+	
+	var utc = yyyy + '/' + mm + '/' + dd;
 	
 	//verificamos si esta guardado una copia de los objetos de hoy
 	artefactos.objetos = modelo[utc];
 	localStorage.pokemontoday = modelo[utc];
 	localStorage.today = utc;
-	localStorage.numeroErroresPreguntas = "0";
+	if(!localStorage.numeroErroresPreguntas)
+		localStorage.numeroErroresPreguntas = "0";
 }
 

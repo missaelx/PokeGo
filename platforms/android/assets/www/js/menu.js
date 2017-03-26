@@ -3,6 +3,16 @@ $('#myModal').on('shown.bs.modal', function () {
         var pokemon = JSON.parse(localStorage.getItem(idPokemon[id]));
         $("#componentes").append('<div class="row"><img src="img/' + pokemon.img + '" class="col-md-2 icono-dex"><p class="col-md-10">'+ pokemon.nombre+'</p></div>');
     }
+
+    var numComponentesCapturados = 0;
+    for(i in idPokemon){
+		var item = JSON.parse(localStorage.getItem(idPokemon[i]));
+		if(item.nombre != "No descubierto"){
+			numComponentesCapturados++;
+		}
+    }
+    $("#statComponentes").html(numComponentesCapturados);
+    $("#errorRespuestas").html(localStorage.numeroErroresPreguntas)
 });
 
 $('#myModal').on('hidden.bs.modal', function (e) {
@@ -20,10 +30,10 @@ function llenarPreguntas(pokemon){
 
 	//guardamos el pokemon para el evento ocultar
 	$("#preguntas").append(
-		'<input type="hidden" id="pokemonElegido" value="' + JSON.stringify(pokemon) + '">'
+		"<input type='hidden' id='pokemonElegido' value='" + JSON.stringify(pokemon) + "'>"
 		);	
 
-	$("#preguntas").append('<p>' + pokePregunta + '</p>');
+	$("#preguntas").append('<p><strong>' + pokePregunta + '</strong></p>');
 	for(i in pokeRespuestas){
 		if(i == correcta){
 			$("#preguntas").append(
@@ -44,15 +54,15 @@ $('#myModalPregunta').on('hidden.bs.modal', function (e) {
 	var respuestaAlumno = $('input[name="pokeOpcion"]:checked').data("correcta");
 	if(respuestaAlumno == 1){ //si es correcta
 		navigator.notification.alert(
-		    'Felicidades has atrapado un nuevo pokemon, ahora se ha registrado en la InfoDex'  // message
+		    'Felicidades has atrapado un nuevo componente, ahora se ha registrado en la InfoDex',  // message
 		    null,         // callback
 		    'Componente capturado',            // title
 		    'Entendido'                  // buttonName
 		);
 		localStorage.setItem(pokemon.id, JSON.stringify(pokemon) );
-	} else {
+	} else{
 		navigator.notification.alert(
-		    'Tu respuesta no fue acertada, intentalo de nuevo'  // message
+		    'Tu respuesta no fue acertada, intentalo de nuevo',  // message
 		    null,         // callback
 		    'Respuesta incorrecta',            // title
 		    'Entendido'                  // buttonName

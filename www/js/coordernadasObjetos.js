@@ -5,84 +5,85 @@ var artefactos = {
 };
 
 var modelo = { //para pruebas
-	"2017/03/24": [
+	"2017/03/25": [
+
 		{
 			id:"pk1",
 			nombre: "CPU #1",
-			lat: 19.517761,
-			lng: -96.917635,
+			lat: 19.517291,
+			lng: -96.916926,
 			img: "icon-cpu.png",
 			markers: []
 		},
 		{
 			id:"pk2",
 			nombre: "Fuente de poder #1",
-			lat: 19.517816,
-			lng: -96.917416,
+			lat: 19.517807,
+			lng: -96.916493,
 			img: "icon-fuentepoder.png",
 			markers: []
 		},
 		{
 			id:"pk3",
 			nombre: "Gabinete #1",
-			lat: 19.517716,
-			lng: -96.916854,
+			lat: 19.517397,
+			lng: -96.916930,
 			img: "icon-gabinete.png",
 			markers: []
 		},
 		{
 			id:"pk4",
 			nombre: "Disco duro #1",
-			lat: 19.517281,
-			lng: -96.916553,
+			lat: 19.517454,
+			lng: -96.917768,
 			img: "icon-hd.png",
 			markers: []
 		},
 		{
 			id:"pk5",
 			nombre: "Monitor #1",
-			lat: 19.517111,
-			lng: -96.917016,
+			lat: 19.517288,
+			lng: -96.917265,
 			img: "icon-monitor.png",
 			markers: []
 		},
 		{
 			id:"pk6",
 			nombre: "Mouse #1",
-			lat: 19.516783,
-			lng: -96.917080,
+			lat: 19.517196,
+			lng: -96.917265,
 			img: "icon-mouse.png",
 			markers: []
 		},
 		{
 			id:"pk7",
 			nombre: "Tarjeta de red #1",
-			lat: 19.517103,
-			lng: -96.917611,
+			lat: 19.517180,
+			lng: -96.917617,
 			img: "icon-nic.png",
 			markers: []
 		},
 		{
 			id:"pk8",
 			nombre: "NoBreak #1",
-			lat: 19.517039,
-			lng: -96.916807,
+			lat: 19.517202,
+			lng: -96.917098,
 			img: "icon-nobreak.png",
 			markers: []
 		},
 		{
 			id:"pk9",
 			nombre: "Memoria ram #1",
-			lat: 19.517431,
-			lng: -96.916615,
+			lat: 19.517208,
+			lng: -96.917098,
 			img: "icon-ram.png",
 			markers: []
 		},
 		{
 			id:"pk10",
 			nombre: "Sistema operativo #1",
-			lat: 19.517476,
-			lng: -96.917098,
+			lat: 19.517111,
+			lng: -96.917014,
 			img: "icon-so.png",
 			markers: []
 		},
