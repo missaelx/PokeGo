@@ -12,16 +12,15 @@ $('#myModal').on('shown.bs.modal', function () {
 		}
     }
     $("#statComponentes").html(numComponentesCapturados);
-    $("#errorRespuestas").html(localStorage.numeroErroresPreguntas)
+    $("#errorRespuestas").html(localStorage.numeroErroresPreguntas);
+    $("#computadorasArmadas").html(localStorage.numeroComputadoras);
 });
 
 $('#myModal').on('hidden.bs.modal', function (e) {
     $("#componentes").empty();
 })
 
-//$('#myModalPregunta').on('shown.bs.modal', function () {
-    
-//});
+
 
 function llenarPreguntas(pokemon){
 	var pokePregunta = preguntas[pokemon.id].pregunta;
@@ -60,6 +59,20 @@ $('#myModalPregunta').on('hidden.bs.modal', function (e) {
 		    'Entendido'                  // buttonName
 		);
 		localStorage.setItem(pokemon.id, JSON.stringify(pokemon) );
+
+		//preguntamos si se completo alguna computadora
+		var computadoraArmadasPrevioCaptura = parseInt(localStorage.numeroComputadoras);
+		var computadoraArmadasConEstaCaptura = calcularComputadorasArmadas();
+		if(computadoraArmadasConEstaCaptura > computadoraArmadasPrevioCaptura){
+			navigator.notification.alert(
+			    'Felicidades has completado una nueva computadora',  // message
+			    null,         // callback
+			    'Computadora armada',            // title
+			    'Entendido'                  // buttonName
+			);
+			localStorage.numeroComputadoras = computadoraArmadasConEstaCaptura + "";
+		}
+
 	} else{
 		navigator.notification.alert(
 		    'Tu respuesta no fue acertada, intentalo de nuevo',  // message
@@ -71,3 +84,101 @@ $('#myModalPregunta').on('hidden.bs.modal', function (e) {
 	}
     $("#preguntas").empty();
 })
+
+
+
+
+
+function calcularComputadorasArmadas(){
+	var cpu = 0;
+	var fuentedepoder = 0;
+	var gabinete = 0;
+	var discoduro = 0;
+	var monitor = 0;
+	var mouse = 0;
+	var tarjetadered = 0;
+	var noBreak = 0;
+	var memoriaram = 0;
+	var sistemaoperativo = 0;
+	var tarjetamadre = 0;
+	var teclado = 0;
+	var tarjetadevideo = 0;
+
+	//maximas compus = 4
+
+	for(i in idPokemon){
+		var item = JSON.parse(localStorage.getItem(idPokemon[i]));
+		if(item.nombre.includes("CPU"))
+			cpu++;
+		else if(item.nombre.includes("poder"))
+			fuentedepoder++;
+		else if(item.nombre.includes("Gabinete"))
+			gabinete++;
+		else if(item.nombre.includes("duro"))
+			discoduro++;
+		else if(item.nombre.includes("Monitor"))
+			monitor++;
+		else if(item.nombre.includes("Mouse"))
+			mouse++;
+		else if(item.nombre.includes("red"))
+			tarjetadered++;
+		else if(item.nombre.includes("NoBreak"))
+			noBreak++;
+		else if(item.nombre.includes("ram"))
+			memoriaram++;
+		else if(item.nombre.includes("operativo"))
+			sistemaoperativo++;
+		else if(item.nombre.includes("madre"))
+			tarjetamadre++;
+		else if(item.nombre.includes("Teclado"))
+			teclado++;
+		else if(item.nombre.includes("video"))
+			tarjetadevideo++;
+    }
+
+    var numeroComputadoras = 4;
+    if(cpu < numeroComputadoras)
+    	numeroComputadoras = cpu;
+	if(fuentedepoder < numeroComputadoras)
+		numeroComputadoras = fuentedepoder;
+	if(gabinete < numeroComputadoras)
+		numeroComputadoras = gabinete;
+	if(discoduro < numeroComputadoras)
+		numeroComputadoras = discoduro;
+	if(monitor < numeroComputadoras)
+		numeroComputadoras = monitor;
+	if(mouse < numeroComputadoras)
+		numeroComputadoras = mouse;
+	if(tarjetadered < numeroComputadoras)
+		numeroComputadoras = tarjetadered;
+	if(noBreak < numeroComputadoras)
+		numeroComputadoras = noBreak;
+	if(memoriaram < numeroComputadoras)
+		numeroComputadoras = memoriaram;
+	if(sistemaoperativo < numeroComputadoras)
+		numeroComputadoras = sistemaoperativo;
+	if(tarjetamadre < numeroComputadoras)
+		numeroComputadoras = tarjetamadre;
+	if(teclado < numeroComputadoras)
+		numeroComputadoras = teclado;
+	if(tarjetadevideo < numeroComputadoras)
+		numeroComputadoras = tarjetadevideo;
+
+	return numeroComputadoras;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -108,8 +108,6 @@ function actualizarMapa(position){
         Latitude = updatedLatitude;
         Longitude = updatedLongitude;
 
-        $("#x").html(updatedLatitude);
-        $("#y").html(updatedLongitude);
 
         addMarker(updatedLatitude, updatedLongitude);
     } else {
@@ -212,5 +210,7 @@ function incializarObjetos(){
 	localStorage.today = utc;
 	if(!localStorage.numeroErroresPreguntas)
 		localStorage.numeroErroresPreguntas = "0";
+	if(!localStorage.numeroComputadoras)
+		localStorage.numeroComputadoras = "0";
 }
 

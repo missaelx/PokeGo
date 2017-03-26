@@ -108,8 +108,6 @@ function actualizarMapa(position){
         Latitude = updatedLatitude;
         Longitude = updatedLongitude;
 
-        $("#x").html(updatedLatitude);
-        $("#y").html(updatedLongitude);
 
         addMarker(updatedLatitude, updatedLongitude);
     } else {
@@ -210,6 +208,9 @@ function incializarObjetos(){
 	artefactos.objetos = modelo[utc];
 	localStorage.pokemontoday = modelo[utc];
 	localStorage.today = utc;
-	localStorage.numeroErroresPreguntas = "0";
+	if(!localStorage.numeroErroresPreguntas)
+		localStorage.numeroErroresPreguntas = "0";
+	if(!localStorage.numeroComputadoras)
+		localStorage.numeroComputadoras = "0";
 }
 

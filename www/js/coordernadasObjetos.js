@@ -5,7 +5,7 @@ var artefactos = {
 };
 
 var modelo = { //para pruebas
-	"2017/03/25": [
+	"2017/03/26": [
 
 		{
 			id:"pk1",

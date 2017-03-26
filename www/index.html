@@ -18,7 +18,7 @@
             <div id="mapa">
                 <div class="header">
                     
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                    <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModalBases">
                         <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
                     </button>
                     
@@ -31,13 +31,6 @@
                     </button>
                     
                 </div>
-                <div id="coordenadasDiv">
-                    <p>Latitud</p>
-                    <p id="x"></p>
-                    <p>Longitud</p>
-                    <p id="y"></p>
-                </div>
-
 
 
 
@@ -58,6 +51,10 @@
                                     <table class="table">
                                         <tr>
                                             <th>Estadísticas</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Computadoras armadas</td>
+                                            <td id="computadorasArmadas"></td>
                                         </tr>
                                         <tr>
                                             <td>Componentes capturados</td>
@@ -98,7 +95,55 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- modal de la pregunta -->
+                <div class="modal fade" id="myModalBases" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Bases del concurso</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Info Go</h4>
+                                <h5>Atrapalos todos</h5>
+                                <div id="basesConcurso" class="container-fluid">
+                                    <h6>Objetivo</h6>
+                                    <p>El <strong>objetivo</strong> de este concurso es fomentar el conocimiento relacionado al area de informática, además de servir como medio de difusión de los temas que se abordan en la capacitacion de informática.</p>
 
+                                    <h6>Dinámica</h6>
+                                    <p>Los concursantes deberán buscar componentes que estarán dispersos por el area de la escuela. Los componentes aparecerán desde el 27 de marzo hasta el 31 de marzo. El último día aparecerán 12 componentes, en los demás días aparecerán únicamente 10.</p>
+
+                                    <h6>Bases para poder participar</h6>
+                                    <p>Los participantes deberán cunmplir con lo siguiente:</p>
+                                    <ol>
+                                        <li>Pertenecer a la Escuela de Bachilleres Diurna "Antonio María de Rivera"</li>
+                                        <li>Darle me gusta a la página "Informática AMRD" en Facebook</li>
+                                        <li>Tener instalada la aplicación Info Go</li>
+                                    </ol>
+
+                                    <h6>Criterios para elegir al ganador</h6>
+                                    <p>Los participantes deben cumplir con las bases para poder ser clasificados. Cada participante deberá presentar su aplicación con el profesor Josué Martínez Márquez en el laboratorio de informatica el día lunes 3 de abril.</p>
+                                    <p>Los ganadores serán determinados según los siguientes criterios:</p>
+                                    <ol>
+                                        <li>Mayor número de computadoras armadas</li>
+                                        <li>Mayor numero de componentes capturados</li>
+                                        <li>Menor número de errores al contestar preguntas</li>
+                                    </ol>
+                                    <p>Siendo los anteriores presentados en orden jerárquico.</p>
+                                    
+                                    <h6>Premios</h6>
+                                    <p>El primer y segundo lugar recibirán una tarjeta de Netflix&reg;</p>
+                                    <p>El tercer lugar una tarjeta de Spotify&reg;</p>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Responder</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 

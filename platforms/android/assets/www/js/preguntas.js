@@ -70,7 +70,7 @@ var preguntas = {
 			"Falso",
 			"Verdadero"
 		],
-		indiceRespCorrecta: 0
+		indiceRespCorrecta: 1
 	},
 	"pk10": {
 		pregunta: "Linux es un sistema operativo",
@@ -134,7 +134,7 @@ var preguntas = {
 			"Falso",
 			"Verdadero"
 		],
-		indiceRespCorrecta: 0
+		indiceRespCorrecta: 1
 	},
 	"pk18": {
 		pregunta: "Resolución del estándar 1080p",
@@ -145,7 +145,7 @@ var preguntas = {
 		indiceRespCorrecta: 0
 	},
 	"pk19": {
-		pregunta: "El mouse puede ser optico, de laser o mecanico",
+		pregunta: "El mouse puede ser óptico, de laser o mecánico",
 		respuestas: [
 			"Falso",
 			"Verdadero"
@@ -329,7 +329,7 @@ var preguntas = {
 		indiceRespCorrecta: 0
 	},
 	"pk42": {
-		pregunta: "EL gabinete es un componente esencial de la computadora",
+		pregunta: "El gabinete es un componente esencial de la computadora",
 		respuestas: [
 			"Falso",
 			"Verdadero"
